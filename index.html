@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Caesar Cipher</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <style>
+            .output {
+                height: 100px;
+                border: 1px solid blue;
+                padding: 5px;
+            }
+            .main {
+                margin: 20px;   
+            }
+        </style>
+        <script>
+            $(function() {
+                
+                function encrypt(input) {
+                    var output = "";
+                    for (i = 0; i < input.length; i++) { 
+                        var shift = parseInt($("#shift :selected").val());
+                        var number = input.charCodeAt(i) + shift;
+                        number = ((number - 32) % 95) + 32;
+                        output = output + String.fromCharCode(number);
+                    }
+                    return output;
+                }
+                
+                function convert() {
+                    var input = $("#inputText").val();
+                    var output = encrypt(input);
+                    $("#outputText").html(output);    
+                }
+                
+                $("#convertButton").click(convert);
+            });
+        </script>
+    </head>
+    <body>
+        <div class="main">
+            <h1>Caesar Cipher</h1>
+            <h2>Input</h2>
+            <textarea id="inputText" rows="6" cols="40"></textarea>
+            <select id="shift">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <button id="convertButton" type="button" 
+                    class="btn btn-large btn-success">Convert</button>
+            <hr/>
+            <h2>Output</h2>
+            <div id="outputText" class="output"></div>
+        </div>
+    </body>
+</html>
